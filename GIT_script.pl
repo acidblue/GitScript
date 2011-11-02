@@ -44,7 +44,7 @@ print (" 3 Exit(0)\n");
 $menuSelect = <STDIN>;
 chomp $menuSelect;					# chomp used to remove carrige return
 if ($menuSelect == 1 ){
-	userInfo();						# run useCWD() function to get user's directory path
+	userInfo();						# run userInfo() function 
 }
 	
 	elsif( $menuSelect == 2 ){			
@@ -58,17 +58,17 @@ if ($menuSelect == 1 ){
 #Current Working Directory function
 sub useCWD{
 	print ("\nYou are in " .$cwDir);
-	print ("\nDo you want to use the current directory? yes or no..\n");
-	$selectDir = <STDIN>;
+	print ("\nDo you want to use the current directory? yes or no..\n");  	#check if user wants to use the current directory
+	$selectDir = <STDIN>;	
 	chomp $selectDir;
-			if ($selectDir eq 'yes' && $menuSelect == 1 ){
+			if ($selectDir eq 'yes' && $menuSelect == 1 ){					#use current directory to set up repo					
 				git();
 			}
-				elsif  ($selectDir eq 'yes' && $menuSelect == 2){
+				elsif  ($selectDir eq 'yes' && $menuSelect == 2){			#use current directory to add/push another file to existing repo
 					addanother();
 				}
 				else{
-					dirPath();
+					dirPath();												#run dirPath() to change directory
 				}
 			}
 
@@ -78,13 +78,13 @@ sub addanother{
 print("\nEnter file name.\n");
 $addFile = <STDIN>;
 chomp $addFile;
-			if (open(File, $addFile)){		#check file name
+			if (open(File, $addFile)){										#check file name
 		       print ("File name is ok\n");
 		       system 'git add '.$addFile;
 		       checkLength();
 		   }
 	         
-	          else{							# if file name is incorrect re-start addanother()function
+	          else{															# if file name is incorrect re-start addanother()function
 		        print ("****File not found, please check file name and try again****\n");
 		        addanother();
 			}
@@ -93,19 +93,19 @@ sub checkLength{
 	print ("Add small message for the commit NO SPACES use an underscore, \nexample:\"added_file\".Use less than 30 chars\n");
 		       $commitMssg = <STDIN>;
 		       chomp $commitMssg;
-		       $lengthcommitMssg = length ($commitMssg);#use built-in 'length' function to get No. of chars
+		       $lengthcommitMssg = length ($commitMssg);					#use built-in 'length' function to get No. of chars
 		       if ($lengthcommitMssg > 30){
 				   print ("\nYour message is too long, please try a shorter one\n");
 				   checkLength();
 			   }
 			   else{
-					system "git commit -m".$commitMssg.">>commit_record" || die '\nCannot add commit message: $!';#add commit message
+					system "git commit -m".$commitMssg.">>commit_record" || die '\nCannot add commit message: $!';#add commit message and append 'commit_record' file
 					open(NFH, '>>commit_record');
-					if (! print NFH $commitMssg," ", scalar(localtime)."\nEND OF LINE\n*\t*\t*\t*\t*\t*\n"){
+					if (! print NFH $commitMssg," ", scalar(localtime)."\nEND OF LINE\n*\t*\t*\t*\t*\t*\n"){	 #add timestamp 
 						warn "Cannot write to file: $!";
 					}
-					system 'git push -u origin master'|| die '\nCannot push to repo:$!';	     #push file to repo	
-					errorcheck();						                                         # run errorcheck() function to capture any error's
+					system 'git push -u origin master'|| die '\nCannot push to repo:$!';	     				 #push file to repo	
+					errorcheck();						                                        				 # run errorcheck() function to capture any error's
 					}						
 		}			
 				
@@ -130,18 +130,18 @@ sub dirPath{
 	print ("\nEnter a directory path..\n");
 	$dir = <STDIN>;
 	chomp ($dir);
-		if (opendir(DIR, $dir)) {			#if dir path is ok then change to dir and list files
+		if (opendir(DIR, $dir)) {											#if dir path is ok then change to dir and list files
 		chdir $dir;
 		print ("You are now in directory >>> ", $dir, "\n");
 		system 'ls -l';
 			if ($menuSelect == 2 ){
-				addanother();				# run addanother() function to get file if user chose option 2
+				addanother();												# run addanother() function to get file if user chose option 2
 			}
 				else{
-					git();					# run git() function to connect to git hub if user chose option 1
+					git();													# run git() function to connect to git hub if user chose option 1
 				}
 }
-					else {					#if dir path is incorrect re-start menu
+					else {													#if dir path is incorrect re-start function
 						print ("\n****The directory can not be found, please try again****");
 						dirPath();
 }
@@ -151,7 +151,7 @@ sub git{
 
 
 print ("\nEnter the name of the repo you created on Git Hub.\n");
-$repo = <STDIN>;						#get name of repo in order to connect to git hub
+$repo = <STDIN>;															#get name of repo in order to connect to git hub
 chomp $repo;
 
 system 'git config --global user.name'. $user || die "Cannot set user name: $!";	#set global user name and email for git hub repo
@@ -163,22 +163,22 @@ print ("Do you wish to add a README file?  yes or no..\n");
 $selectReadme = <STDIN>;
 chomp $selectReadme;
 	if ($selectReadme eq 'yes'){
-		system 'git init' ;						#initiate repo, creat README file ('touch'), add README and add commit message
+		system 'git init' ;													#initiate repo, creat README file ('touch'), add README and add commit message
 		system 'touch README';
 		system 'git add README';
 		system "git commit -m 'Added README' "; 
 		system "git remote add origin git\@github.com:".$user."/".$repo.".git";
-		system 'git push -u origin master';		# push file to git hub repo
+		system 'git push -u origin master';									# push file to git hub repo
 		errorcheck();
 }
-		else{									# if user doesn't want a README user can chose to commit another file
+		else{																# if user doesn't want a README user can chose to commit another file
 		print ("\nDo you whish to add/commit another file?  yes or no..\n");
 		$select = <STDIN>;
 		chomp $select;
 			if ($select eq 'yes' ){
 			addanother();
 		}
-				else{							#if user chose 'no' script will re-display the start menu
+				else{														#if user chose 'no' script will re-display the start menu
 					startMenu();
 		  }
 }

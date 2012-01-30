@@ -1,0 +1,49 @@
+GIT script >>  a Perl script for setting up a Git Hub repo.
+This is a *NIX ONLY script.
+By acidblue  10/31/2011 
+*********************************************************************************************
+You want to use the GIT_script.pl file NOT the Test_Script.pl one.
+The Test_Script is used for testing any changes I think will benefit the script.
+Although both scripts are similar they are not the same,(usually), things that 
+work go into the GIT script things that don't stay in the Test Script and eventually 
+get deleted or changed.
+*********************************************************************************************
+
+
+INSTALLATION and USAGE:
+Unpack archive to a directory then open a terminal and cd to directory where script has been un-archived then in terminal write >> perl name_of_script.pl, in this case GIT_script.pl
+Then follow on screen prompts to set up your repo.
+Choose option 1 for setting up your repo.
+Option 2 to add to an already existing repo.
+Option 3 exits script.
+
+This script will help you set up a Git Hub Repo, it will 
+initialize an empty repo on your local machine and your 
+Git Hub account online. 
+It will add a blank README file in your repo if you choose, 
+you can edit the README later then use this script to 'push' it 
+to your git hub repo.
+Also the script will create a file "commit_record" in your repo
+folder on your computer, this is a record of all the commits/pushes you
+make to Git Hub along with a timestamp for each record.
+It will also add any other file you choose as well, (option 2).
+I often use this script my self other than using git-cola or any other
+git type program for pushing files to my repo, it's just easier and faster
+IMO.
+
+########################################################################
+ALWAYS use an underscore or something similar in naming anything	<<<<<<<<<<IMPORTANT
+you send to Git Hub when using this script, especially commit messages.
+For some reason Git Hub doesn't like spaces between words
+and will kick an error if you do and the script will quit.
+
+EXAMPLES: script names >> name_of_script.pl,  
+commit message >> added_changes_to_script 
+
+########################################################################
+
+You MUST HAVE a Git Hub account and a named repo to use this script.
+www.github.com
+
+This script comes under the GNU General Public License.
+

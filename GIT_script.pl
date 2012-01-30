@@ -113,13 +113,13 @@ sub checkLength{
 # Function to get username and email from user		
 sub userInfo{
 
-print ("Enter your user name\n");
-$user = <STDIN>;
-chomp $user;
-print ("\nEnter your email address\n");
-$email = <STDIN>;
-chomp $email;
-useCWD();
+	print ("Enter your user name\n");
+	$user = <STDIN>;
+	chomp $user;
+	print ("\nEnter your email address\n");
+	$email = <STDIN>;
+	chomp $email;
+	useCWD();
 }
 
 
@@ -150,26 +150,26 @@ sub dirPath{
 sub git{
 
 
-print ("\nEnter the name of the repo you created on Git Hub.\n");
-$repo = <STDIN>;															#get name of repo in order to connect to git hub
-chomp $repo;
+	print ("\nEnter the name of the repo you created on Git Hub.\n");
+	$repo = <STDIN>;															#get name of repo in order to connect to git hub
+	chomp $repo;
 
-system 'git config --global user.name'. $user || die "Cannot set user name: $!";	#set global user name and email for git hub repo
-system 'git config --global user.email'. $email || die "Cannot set email: $!";
+	system 'git config --global user.name'. $user || die "Cannot set user name: $!";	#set global user name and email for git hub repo
+	system 'git config --global user.email'. $email || die "Cannot set email: $!";
 
 
 #Add README
 print ("Do you wish to add a README file?  yes or no..\n");
 $selectReadme = <STDIN>;
-chomp $selectReadme;
-	if ($selectReadme eq 'yes'){
-		system 'git init' ;													#initiate repo, creat README file ('touch'), add README and add commit message
-		system 'touch README';
-		system 'git add README';
-		system "git commit -m 'Added README' "; 
-		system "git remote add origin git\@github.com:".$user."/".$repo.".git";
-		system 'git push -u origin master';									# push file to git hub repo
-		errorcheck();
+	chomp $selectReadme;
+			if ($selectReadme eq 'yes'){
+				system 'git init' ;													#initiate repo, creat README file ('touch'), add README and add commit message
+				system 'touch README';
+				system 'git add README';
+				system "git commit -m 'Added README' "; 
+				system "git remote add origin git\@github.com:".$user."/".$repo.".git";
+				system 'git push -u origin master';									# push file to git hub repo
+				errorcheck();
 }
 		else{																# if user doesn't want a README user can chose to commit another file
 		print ("\nDo you whish to add/commit another file?  yes or no..\n");

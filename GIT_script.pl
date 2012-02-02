@@ -14,7 +14,7 @@ Use option 1 to set up your repo, option 2 to add to an
 already existing Git Hub repo.
 =cut
 
-use 5.10.1;
+#use 5.10.1;
 use strict;
 use Cwd;
 
@@ -171,7 +171,7 @@ sub git {
     $selectReadme = <STDIN>;
     chomp $selectReadme;
     if ( $selectReadme eq 'yes' ) {
-        system 'git init' ; #initiate repo, creat README file ('touch'), add README and add commit message
+        system 'git init' ; #initiate repo, create README file ('touch'), add README and add commit message
           
         system 'touch README';
         system 'git add README';
@@ -180,7 +180,7 @@ sub git {
           . ".git";
         system 'git push -u origin master';    # push file to git hub repo
         errorcheck();
-    } else { # if user doesn't want a README user can chose to commit another file
+    } else { # if user doesn't want a README user can choose to commit another file
         print("\nDo you whish to add/commit another file?  yes or no..\n");
         $select = <STDIN>;
         chomp $select;
